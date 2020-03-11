@@ -7,7 +7,7 @@ const INITIAL_STATE: AuthorsState = {
 };
 
 export function authorsReducer(state: AuthorsState = INITIAL_STATE,
-                               action: AuthorsActions): AuthorsState {
+  action: AuthorsActions): AuthorsState {
   switch (action.type) {
     case GetAuthorsRequestAction.type:
       return {

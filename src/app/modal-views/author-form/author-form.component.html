@@ -1,0 +1,37 @@
+<mat-card class="author-form mat-elevation-z0">
+    <mat-card-title>
+        <ng-container>New Author</ng-container>
+    </mat-card-title>
+    <form [formGroup]="authorForm" (ngSubmit)="submitAuthor()">
+        <mat-card-content>
+
+            <mat-form-field class="author-form-field">
+                <input matInput type="text" placeholder="Name Surname" [formControlName]="AuthorFormKey.Name">
+                <mat-error>
+                    Name Surname pattern is <strong>required</strong> (John Paul)
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="author-form-field">
+                <input matInput type="text" placeholder="Email" [formControlName]="AuthorFormKey.Email">
+                <mat-error>
+                    Email pattern is <strong>required</strong> (john.paul@email.com)
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="author-form-field">
+                <input matInput type="number" min="0" max="10" placeholder="Skill"
+                    [formControlName]="AuthorFormKey.Skill">
+                <mat-error>
+                    Skill is <strong>required</strong> (0-10)
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions class="author-form-actions">
+            <button mat-raised-button color="warn" type="button" (click)="closeDialog()">
+                Cancel
+            </button>
+            <button [disabled]="!authorForm.valid" mat-raised-button color="primary" type="submit">
+                Submit
+            </button>
+        </mat-card-actions>
+    </form>
+</mat-card>

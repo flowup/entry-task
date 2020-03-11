@@ -6,6 +6,7 @@ import { RecipeFormComponent } from 'src/app/modal-views/recipe-form/recipe-form
 import { AppStateModel } from 'src/app/models/helper/app-state.model';
 import { Store, select } from '@ngrx/store';
 import { $toolbarRaised } from 'src/app/selectors/scroll.selectors';
+import { AuthorFormComponent } from 'src/app/modal-views/author-form/author-form.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -17,13 +18,25 @@ export class ToolbarComponent {
   readonly toolbarRaised$ = this.store.pipe(select($toolbarRaised));
 
   constructor(private readonly dialog: MatDialog,
-              private readonly store: Store<AppStateModel>) { }
+    private readonly store: Store<AppStateModel>) { }
 
   showNewRecipeDialog(): void {
     const dialogData: RecipeDialogDataModel = {};
     this.dialog.open(
-      RecipeFormComponent, 
-      {disableClose: true, data: dialogData}
+      RecipeFormComponent,
+      {
+        disableClose: true,
+        data: dialogData,
+        maxHeight: '90vh'
+      }
+    );
+  }
+
+  showNewAuthorDialog(): void {
+    const dialogData: RecipeDialogDataModel = {};
+    this.dialog.open(
+      AuthorFormComponent,
+      { disableClose: true, data: dialogData }
     );
   }
 }

@@ -3,6 +3,11 @@
   flex-wrap: wrap;
 }
 
+.recipes-filter {
+  display: flex;
+  justify-content: space-between;
+}
+
 .recipes-card {
   width: 360px;
   height: 420px;

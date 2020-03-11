@@ -2,7 +2,9 @@
   {
     "id": "dbe585ae",
     "title": "Maple-Glazed Ham",
-    "authorIds": ["860fc2fa"],
+    "authorIds": [
+      "860fc2fa"
+    ],
     "ingredients": [
       {
         "amount": "1",
@@ -32,12 +34,21 @@
       "Mix the glaze ingredients together and pour over the ham. Bake in oven preheated to 180°C for 30mins, making sure to baste well every ten minutes.",
       "Allow to rest for 30 minutes or serve chilled."
     ],
-    "imageUrl": "https://img.taste.com.au/3gBNdA3g/taste/2010/01/maple-honey-mustard-glazed-ham-119210-2.jpg"
+    "imageUrl": "https://img.taste.com.au/3gBNdA3g/taste/2010/01/maple-honey-mustard-glazed-ham-119210-2.jpg",
+    "tags": [
+      "syrup",
+      "mustard",
+      "salt",
+      "pepper"
+    ],
+    "difficulty": 2
   },
   {
     "id": "123456f",
     "title": "Chili con Carne",
-    "authorIds": ["860fc2fa"],
+    "authorIds": [
+      "860fc2fa"
+    ],
     "ingredients": [
       {
         "amount": "1/2",
@@ -112,14 +123,21 @@
       "3. In a food processor or blender puree half of the beans with the remaining stock. Add the bean mixture to the chili along with the whole beans. Simmer for 1 hour more or until the meat is tender. Season with salt and pepper to taste and serve with rice and selections of condiments, like sour cream, chopped coriander, shredded cheddar, minced fresh or sliced pickled jalapenos.",
       "Cook's Note: Try to avoid using canned beef broth because it can give the chili an unpleasant tinny taste. The chilli tastes best if made a day a head, refrigerated, and reheated."
     ],
-    "imageUrl": "http://www.eastendfood.coop/wp-content/uploads/2018/08/Blog_Chili-con-Carne.jpg"
+    "imageUrl": "http://www.eastendfood.coop/wp-content/uploads/2018/08/Blog_Chili-con-Carne.jpg",
+    "tags": [
+      "beef",
+      "chicken",
+      "salt",
+      "pepper"
+    ],
+    "difficulty": 8
   },
-
-
   {
     "id": "123456a",
     "title": "Sausage Lasagna",
-    "authorIds": ["0dcf7a97"],
+    "authorIds": [
+      "0dcf7a97"
+    ],
     "ingredients": [
       {
         "amount": "9",
@@ -202,12 +220,21 @@
       "Assemble the lasagna: Mist a 9-inch by 13-inch baking dish with nonstick cooking spray. Spread 1/2 cup tomato sauce on the bottom of the prepared baking dish. Top with 3 noodles, half the ricotta mixture, half the sausage and 1/2 cup shredded mozzarella cheese. Repeat layers with sauce, noodles, remaining ricotta and sausage and 1/2 cup mozzarella cheese. Top with remaining noodles and sauce. Cover with aluminum foil and bake until the noodles are tender and the sauce is bubbling around the edges of the pan, 1 hour.",
       "Uncover, sprinkle with remaining mozzarella cheese and continue to bake until melted, 10 minutes. Let stand 15 minutes. Sprinkle with remaining 1/4 cup basil. Serve."
     ],
-    "imageUrl": "https://www.johnsonville.com/.imaging/mte/johnsonville-retail/640-wide/dam/johnsonville/recipe-images/italian-sausage-lasagna/jcr:content/italian-sausage-lasagna.jpg"
+    "imageUrl": "https://www.johnsonville.com/.imaging/mte/johnsonville-retail/640-wide/dam/johnsonville/recipe-images/italian-sausage-lasagna/jcr:content/italian-sausage-lasagna.jpg",
+    "tags": [
+      "wine",
+      "tomatoes",
+      "garlic",
+      "pepper"
+    ],
+    "difficulty": 4
   },
   {
     "id": "37a18ebf",
     "title": "Brownies",
-    "authorIds": ["1f60bcbf"],
+    "authorIds": [
+      "1f60bcbf"
+    ],
     "ingredients": [
       {
         "amount": "220",
@@ -259,6 +286,13 @@
       "Preheat the oven to 180°C. Line a 23cmx33cm brownie pan with parchment paper, leaving roughly a 5cm overhang, to help remove the brownies later.",
       "Sift the flour, cocoa powder and salt together into a bowl and set aside. In a medium pan set over medium heat melt the chocolate and butter together. Once fully melted whisk in the sugars, then remove from the heat. Firmly whisk in the eggs and vanilla until the eggs are combined and the batter has thickened slightly. Add the flour mixture and gently fold together. You want to fold it in completely, a few spots of flour is fine. Pour into the prepared pan and gently level out."
     ],
-    "imageUrl": "https://media4.s-nbcnews.com/i/newscms/2016_37/1158580/food-jocelyn-delk-adams-002-oreo-brownies-tease-today-160916_1fa5d3b0b3c444725e083acf6b3a3ea6.jpg"
+    "imageUrl": "https://media4.s-nbcnews.com/i/newscms/2016_37/1158580/food-jocelyn-delk-adams-002-oreo-brownies-tease-today-160916_1fa5d3b0b3c444725e083acf6b3a3ea6.jpg",
+    "tags": [
+      "sugar",
+      "cocoa",
+      "vanilla",
+      "eggs"
+    ],
+    "difficulty": 10
   }
 ]

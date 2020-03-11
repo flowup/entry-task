@@ -109,5 +109,8 @@
       }
     }
   },
-  "defaultProject": "entry-task"
+  "defaultProject": "entry-task",
+  "cli": {
+    "analytics": "0b2d2736-cef6-452f-820d-f165816c35a9"
+  }
 }

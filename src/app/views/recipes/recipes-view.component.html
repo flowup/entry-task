@@ -1,11 +1,28 @@
+<div class="recipes-filter">
+  <mat-form-field>
+    <mat-label>Tags</mat-label>
+    <mat-select (selectionChange)="filterByTag()" [formControl]="tags" multiple>
+      <mat-option *ngFor="let tag of tagList" [value]="tag">{{tag}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button (click)="filterByDifficulty()">
+    Difficulty&nbsp;
+    <ng-container [ngSwitch]="difficultySort">
+      <span *ngSwitchCase="0">&#8593;</span>
+      <span *ngSwitchCase="1">&#8595;</span>
+    </ng-container>
+  </button>
+</div>
+
 <div class="recipes">
-  <a
-    *ngFor="let recipe of recipeListData$ | async"
-    [routerLink]="['/' + RoutePath.Recipes, recipe.id]"
-  >
+
+  <a *ngFor="let recipe of filteredData" [routerLink]="['/' + RoutePath.Recipes, recipe.id]">
+
     <mat-card class="recipes-card">
       <mat-card-header>
-<!--        <div mat-card-avatar class="avatar-header-image" [ngStyle]="{'backgroundImage': 'url('+ au+')'}"></div>-->
+        <!-- <div mat-card-avatar class="avatar-header-image" [ngStyle]="{'backgroundImage': 'url('+ au+')'}"></div> -->
         <mat-card-title>{{recipe.title}}</mat-card-title>
         <mat-card-subtitle>by {{recipe.authorIds | appAuthorNames}}</mat-card-subtitle>
       </mat-card-header>
@@ -24,9 +41,39 @@
 <mat-divider></mat-divider>
 <div class="recipes-about">
   <div class="mat-title">About</div>
-  <p class="recipes-about-paragraph mat-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ultricies aliquam quam eu mollis. Phasellus ac feugiat felis. Sed eget sapien a turpis molestie consectetur. Nam laoreet in purus in cursus. Duis vitae felis sed tortor sodales vulputate. Nullam a ante tempus, pulvinar sem in, volutpat velit. Sed ultricies sodales dolor non gravida. Duis condimentum, diam non finibus fringilla, risus lectus luctus ligula, a laoreet massa nibh at ligula. Vestibulum justo velit, imperdiet ut orci quis, lacinia placerat mauris. Integer auctor, tellus a mollis porttitor, dolor felis consectetur turpis, at aliquam nisi nulla aliquam lorem. Donec faucibus nulla eu felis volutpat elementum. Etiam condimentum rutrum lacinia. Duis luctus porttitor tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
-  <p class="recipes-about-paragraph mat-body">Sed sit amet diam odio. Vivamus ac diam justo. Maecenas ullamcorper venenatis nunc, sed venenatis arcu tempus sed. Sed quis metus quis tellus blandit cursus eu id felis. Mauris felis mi, lacinia ut est nec, placerat porta mi. Nulla tristique orci rhoncus nulla commodo feugiat. In commodo dapibus magna, sed feugiat lacus aliquam a. In sed nisl et velit malesuada elementum sit amet nec orci. Nulla ut sem pharetra ante facilisis tincidunt eget eu nibh. Vivamus congue ornare mi imperdiet varius. Maecenas mattis elit odio, quis consequat nulla molestie sed.</p>
-  <p class="recipes-about-paragraph mat-body">Pellentesque vel elit turpis. Fusce maximus viverra rhoncus. Sed fermentum nisl eget convallis vehicula. Cras nulla odio, tincidunt ut arcu vel, aliquet scelerisque nibh. Fusce eget vestibulum dolor. Sed hendrerit elit vel dui molestie interdum. Donec sodales velit lacus, non tempus diam tincidunt varius. Aenean vulputate mauris mauris. Ut feugiat eget ante quis facilisis. In dapibus maximus blandit. Maecenas sapien nunc, ultricies ut ornare in, finibus vel nisl. Aenean at iaculis tortor. Nulla varius elit ac erat fermentum, scelerisque gravida purus fringilla. Aliquam faucibus, augue sit amet dapibus pretium, quam elit consectetur ante, id feugiat justo dolor vitae neque. Etiam finibus eget ligula nec tincidunt.</p>
-  <p class="recipes-about-paragraph mat-body">Cras varius ante ex, porta tempor justo tincidunt eu. Nam consequat metus lectus, sit amet egestas lectus dignissim non. Vivamus condimentum posuere varius. Nam porttitor blandit eros varius rhoncus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque facilisis ullamcorper nibh ut efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis consequat nibh at laoreet. Etiam ornare metus eget quam hendrerit, sed pharetra urna fermentum. Phasellus a malesuada nunc. Phasellus rhoncus felis a mi pulvinar, a commodo quam ultrices. Curabitur facilisis tellus vitae mauris iaculis, sed porta purus pellentesque.</p>
-  <p class="recipes-about-paragraph mat-body">Aenean orci risus, iaculis ut viverra ut, eleifend pellentesque ligula. Mauris efficitur tortor sed elit condimentum feugiat. Vivamus vitae sapien id lectus pulvinar interdum eu id arcu. Curabitur sollicitudin vel turpis lobortis consequat. Etiam ullamcorper orci sem, a malesuada mauris aliquet at. Nullam consequat sagittis aliquam. In accumsan urna diam, sit amet convallis sapien dignissim sed. In a dignissim magna, sed cursus massa. Proin feugiat sit amet quam euismod cursus. Aliquam ut erat at augue gravida auctor nec sit amet nisl. Donec blandit, turpis id convallis convallis, elit diam rutrum leo, malesuada euismod nunc lorem vitae tellus.</p>
+  <p class="recipes-about-paragraph mat-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+    ultricies aliquam quam eu mollis. Phasellus ac feugiat felis. Sed eget sapien a turpis molestie consectetur. Nam
+    laoreet in purus in cursus. Duis vitae felis sed tortor sodales vulputate. Nullam a ante tempus, pulvinar sem in,
+    volutpat velit. Sed ultricies sodales dolor non gravida. Duis condimentum, diam non finibus fringilla, risus lectus
+    luctus ligula, a laoreet massa nibh at ligula. Vestibulum justo velit, imperdiet ut orci quis, lacinia placerat
+    mauris. Integer auctor, tellus a mollis porttitor, dolor felis consectetur turpis, at aliquam nisi nulla aliquam
+    lorem. Donec faucibus nulla eu felis volutpat elementum. Etiam condimentum rutrum lacinia. Duis luctus porttitor
+    tristique. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+  <p class="recipes-about-paragraph mat-body">Sed sit amet diam odio. Vivamus ac diam justo. Maecenas ullamcorper
+    venenatis nunc, sed venenatis arcu tempus sed. Sed quis metus quis tellus blandit cursus eu id felis. Mauris felis
+    mi, lacinia ut est nec, placerat porta mi. Nulla tristique orci rhoncus nulla commodo feugiat. In commodo dapibus
+    magna, sed feugiat lacus aliquam a. In sed nisl et velit malesuada elementum sit amet nec orci. Nulla ut sem
+    pharetra ante facilisis tincidunt eget eu nibh. Vivamus congue ornare mi imperdiet varius. Maecenas mattis elit
+    odio, quis consequat nulla molestie sed.</p>
+  <p class="recipes-about-paragraph mat-body">Pellentesque vel elit turpis. Fusce maximus viverra rhoncus. Sed fermentum
+    nisl eget convallis vehicula. Cras nulla odio, tincidunt ut arcu vel, aliquet scelerisque nibh. Fusce eget
+    vestibulum dolor. Sed hendrerit elit vel dui molestie interdum. Donec sodales velit lacus, non tempus diam tincidunt
+    varius. Aenean vulputate mauris mauris. Ut feugiat eget ante quis facilisis. In dapibus maximus blandit. Maecenas
+    sapien nunc, ultricies ut ornare in, finibus vel nisl. Aenean at iaculis tortor. Nulla varius elit ac erat
+    fermentum, scelerisque gravida purus fringilla. Aliquam faucibus, augue sit amet dapibus pretium, quam elit
+    consectetur ante, id feugiat justo dolor vitae neque. Etiam finibus eget ligula nec tincidunt.</p>
+  <p class="recipes-about-paragraph mat-body">Cras varius ante ex, porta tempor justo tincidunt eu. Nam consequat metus
+    lectus, sit amet egestas lectus dignissim non. Vivamus condimentum posuere varius. Nam porttitor blandit eros varius
+    rhoncus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque
+    facilisis ullamcorper nibh ut efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis
+    consequat nibh at laoreet. Etiam ornare metus eget quam hendrerit, sed pharetra urna fermentum. Phasellus a
+    malesuada nunc. Phasellus rhoncus felis a mi pulvinar, a commodo quam ultrices. Curabitur facilisis tellus vitae
+    mauris iaculis, sed porta purus pellentesque.</p>
+  <p class="recipes-about-paragraph mat-body">Aenean orci risus, iaculis ut viverra ut, eleifend pellentesque ligula.
+    Mauris efficitur tortor sed elit condimentum feugiat. Vivamus vitae sapien id lectus pulvinar interdum eu id arcu.
+    Curabitur sollicitudin vel turpis lobortis consequat. Etiam ullamcorper orci sem, a malesuada mauris aliquet at.
+    Nullam consequat sagittis aliquam. In accumsan urna diam, sit amet convallis sapien dignissim sed. In a dignissim
+    magna, sed cursus massa. Proin feugiat sit amet quam euismod cursus. Aliquam ut erat at augue gravida auctor nec sit
+    amet nisl. Donec blandit, turpis id convallis convallis, elit diam rutrum leo, malesuada euismod nunc lorem vitae
+    tellus.</p>
 </div>

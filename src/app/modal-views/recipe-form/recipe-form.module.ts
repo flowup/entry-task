@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImagePickerModule } from '../../components/image-picker/image-picker.module';
 import { RecipeFormComponent } from './recipe-form.component';
-import { MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, MatChipsModule } from '@angular/material';
 
 @NgModule({
   declarations: [RecipeFormComponent],
@@ -17,7 +17,8 @@ import { MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatI
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ImagePickerModule,
+    MatChipsModule,
+    ImagePickerModule
   ]
 })
 export class RecipeFormModule { }

@@ -1,5 +1,4 @@
-<mat-toolbar color="primary" 
-             [ngClass]="{'mat-elevation-z2': toolbarRaised$ | async}">
+<mat-toolbar color="primary" [ngClass]="{'mat-elevation-z2': toolbarRaised$ | async}">
   <div class="toolbar-content">
     <div class="toolbar-section">
       <div class="toolbar-heading">Recipe Book</div>
@@ -8,6 +7,7 @@
     </div>
     <div class="toolbar-section">
       <button mat-raised-button (click)="showNewRecipeDialog()">New recipe</button>
+      <button mat-raised-button (click)="showNewAuthorDialog()">New author</button>
     </div>
   </div>
 </mat-toolbar>

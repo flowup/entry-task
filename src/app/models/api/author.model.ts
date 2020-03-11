@@ -3,4 +3,5 @@ export interface AuthorModel {
   email: string;
   name: string;
   avatar: string;
+  skill: number;
 }
