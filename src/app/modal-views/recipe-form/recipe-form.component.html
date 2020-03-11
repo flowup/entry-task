@@ -3,88 +3,81 @@
     <ng-container *ngIf="dialogData.recipeId; else newRecipeTitle">Edit Recipe</ng-container>
     <ng-template #newRecipeTitle>New Recipe</ng-template>
   </mat-card-title>
-  <mat-card-content>
-    <form [formGroup]="recipeForm" (ngSubmit)="submitRecipe()">
+  <form [formGroup]="recipeForm" (ngSubmit)="submitRecipe()">
+    <mat-card-content>
       <mat-form-field class="recipe-form-field">
-        <input matInput
-               type="text"
-               placeholder="Title"
-               [formControlName]="RecipeFormKey.Title">
+        <input matInput type="text" placeholder="Title" [formControlName]="RecipeFormKey.Title">
       </mat-form-field>
       <mat-form-field class="recipe-form-field">
-        <mat-select multiple
-                    placeholder="Authors" 
-                    [formControlName]="RecipeFormKey.Authors">
-          <mat-option *ngFor="let author of authorsData$ | async"
-                      [value]="author.id">
+        <mat-select multiple placeholder="Authors" [formControlName]="RecipeFormKey.Authors">
+          <mat-option *ngFor="let author of authorsData$ | async" [value]="author.id">
             {{author.name}} ({{author.email}})
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="recipe-form-field">
-        <textarea matInput
-                  class="recipe-form-textarea"
-                  placeholder="Recipe text"
-                  [formControlName]="RecipeFormKey.Text">
+        <textarea matInput class="recipe-form-textarea" placeholder="Recipe text"
+          [formControlName]="RecipeFormKey.Text">
         </textarea>
+      </mat-form-field>
+      <!-- Difficulty -->
+      <mat-form-field class="recipe-form-field">
+        <input matInput type="number" placeholder="Difficulty" [formControlName]="RecipeFormKey.Difficulty">
+        <mat-error>
+          Difficulty is <strong>required</strong> (0-10)
+        </mat-error>
+      </mat-form-field>
+      <!-- Tags -->
+      <mat-form-field class="recipe-form-field">
+        <mat-chip-list #chipList aria-label="Tags creation">
+          <mat-chip *ngFor="let tag of recipeForm.value[RecipeFormKey.Tags]" [selectable]="selectable"
+            [removable]="removable" (removed)="remove(tag)">
+            {{tag}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="New tag..." [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
       </mat-form-field>
       <app-image-picker [formControlName]="RecipeFormKey.Image"></app-image-picker>
       <div class="mat-title">Ingredients</div>
       <div [formArrayName]="RecipeFormKey.Ingredients">
         <div *ngFor="let _ of recipeForm.value[RecipeFormKey.Ingredients]; let i = index; trackBy: identifyIngredient"
-             [formGroupName]="i"
-             class="recipe-form-ingredient">
+          [formGroupName]="i" class="recipe-form-ingredient">
           <div class="recipe-form-ingredient-field">
             <mat-form-field class="recipe-form-field">
-              <input matInput
-                      type="text"
-                      placeholder="Ingredient"
-                      [formControlName]="IngredientFormKey.Name">
+              <input matInput type="text" placeholder="Ingredient" [formControlName]="IngredientFormKey.Name">
             </mat-form-field>
           </div>
           <div class="recipe-form-ingredient-field">
             <mat-form-field class="recipe-form-field">
-              <input matInput
-                    type="text"
-                    placeholder="Amount"
-                    [formControlName]="IngredientFormKey.Amount">
+              <input matInput type="text" placeholder="Amount" [formControlName]="IngredientFormKey.Amount">
             </mat-form-field>
           </div>
           <div class="recipe-form-ingredient-field">
             <mat-form-field class="recipe-form-field">
-              <input matInput
-                    type="text"
-                    placeholder="Unit"
-                    [formControlName]="IngredientFormKey.Unit">
+              <input matInput type="text" placeholder="Unit" [formControlName]="IngredientFormKey.Unit">
             </mat-form-field>
           </div>
           <div class="recipe-form-ingredient-field">
-            <button mat-button mat-icon-button
-                    type="button" 
-                    (click)="removeIngredient(i)">
+            <button mat-button mat-icon-button type="button" (click)="removeIngredient(i)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
         </div>
-        <button mat-button 
-                type="button" 
-                (click)="addIngredient()">
+        <button mat-button type="button" (click)="addIngredient()">
           Add ingredient
         </button>
       </div>
-    </form>
-  </mat-card-content>
-  <mat-card-actions class="recipe-form-actions">
-    <button mat-raised-button
-            color="warn"
-            type="button"
-            (click)="closeDialog()">
-      Cancel
-    </button>
-    <button mat-raised-button
-            color="primary"
-            type="submit">
-      Submit
-    </button>
-  </mat-card-actions>
+    </mat-card-content>
+    <mat-card-actions class="recipe-form-actions">
+      <button mat-raised-button color="warn" type="button" (click)="closeDialog()">
+        Cancel
+      </button>
+      <button mat-raised-button color="primary" type="submit">
+        Submit
+      </button>
+    </mat-card-actions>
+  </form>
 </mat-card>

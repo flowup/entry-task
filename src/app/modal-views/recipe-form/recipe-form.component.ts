@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef, MatChipInputEvent } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { PostRecipeRequestAction, PutRecipeRequestAction } from '../../actions/recipe-detail.actions';
@@ -10,6 +10,7 @@ import { AppStateModel } from '../../models/helper/app-state.model';
 import { RecipeDialogDataModel } from '../../models/helper/recipe-dialog-data.model';
 import { $authorsData } from '../../selectors/authors.selectors';
 import { $recipeById } from '../../selectors/recipe-detail.selectors';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 enum RecipeFormKey {
   Title = 'Title',
@@ -17,6 +18,8 @@ enum RecipeFormKey {
   Ingredients = 'Ingredients',
   Text = 'Text',
   Image = 'Image',
+  Difficulty = 'Difficulty',
+  Tags = 'Tags'
 }
 
 enum IngredientFormKey {
@@ -33,16 +36,22 @@ export class RecipeFormComponent implements OnInit {
   readonly RecipeFormKey = RecipeFormKey;
   readonly IngredientFormKey = IngredientFormKey;
   recipeForm: FormGroup;
+  // Chips for tags
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   readonly authorsData$ = this.store.pipe(select($authorsData));
 
   constructor(@Inject(MAT_DIALOG_DATA) public readonly dialogData: RecipeDialogDataModel,
-              private readonly dialogRef: MatDialogRef<RecipeFormComponent>,
-              private readonly store: Store<AppStateModel>,
-              private readonly fb: FormBuilder) { }
+    private readonly dialogRef: MatDialogRef<RecipeFormComponent>,
+    private readonly store: Store<AppStateModel>,
+    private readonly fb: FormBuilder) { }
 
   async ngOnInit(): Promise<void> {
-    const {recipeId} = this.dialogData;
+    const { recipeId } = this.dialogData;
     const recipe = recipeId != null ?
       await this.store
         .pipe(select($recipeById(recipeId)), take(1))
@@ -58,6 +67,8 @@ export class RecipeFormComponent implements OnInit {
       ),
       [RecipeFormKey.Text]: [recipe != null ? recipe.text : '', Validators.required],
       [RecipeFormKey.Image]: recipe != null ? recipe.imageUrl : '',
+      [RecipeFormKey.Difficulty]: [recipe != null ? recipe.difficulty : '', [Validators.required, Validators.min(0), Validators.max(10)]],
+      [RecipeFormKey.Tags]: [recipe != null ? recipe.tags : []]
     });
   }
 
@@ -76,7 +87,7 @@ export class RecipeFormComponent implements OnInit {
   }
 
   submitRecipe(): void {
-    const {value} = this.recipeForm;
+    const { value } = this.recipeForm;
     const recipe: RecipeModel = {
       title: value[RecipeFormKey.Title],
       authorIds: value[RecipeFormKey.Authors],
@@ -89,10 +100,14 @@ export class RecipeFormComponent implements OnInit {
           }
         })),
       text: value[RecipeFormKey.Text],
-      imageUrl: value[RecipeFormKey.Image]
+      imageUrl: value[RecipeFormKey.Image],
+      difficulty: value[RecipeFormKey.Difficulty], //TODO: last task -> EXTENDING RECIPES MODEL AND ADD FILTERING+
+      tags: value[RecipeFormKey.Tags] //TODO: last task -> EXTENDING RECIPES MODEL AND ADD FILTERING
     };
+    // TODO: Delete after testing
+    console.log(recipe);
 
-    const {recipeId} = this.dialogData;
+    const { recipeId } = this.dialogData;
     this.store.dispatch(
       recipeId != null ?
         new PutRecipeRequestAction(recipeId, recipe) :
@@ -111,5 +126,28 @@ export class RecipeFormComponent implements OnInit {
       [IngredientFormKey.Amount]: ingredient != null ? ingredient.amount : '',
       [IngredientFormKey.Unit]: ingredient != null ? ingredient.unit || '' : '',
     });
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add tag
+    if ((value || '').trim()) {
+      this.recipeForm.value[RecipeFormKey.Tags].push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(tag: string): void {
+    const index = this.recipeForm.value[RecipeFormKey.Tags].indexOf(tag);
+
+    if (index >= 0) {
+      this.recipeForm.value[RecipeFormKey.Tags].splice(index, 1);
+    }
   }
 }
