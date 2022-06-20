@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect } from '@ngrx/effects';
+import { createEffect } from '@ngrx/effects';
 import { filter, map } from 'rxjs/operators';
 import { NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 import { NavigateRequestAction, NavigateSuccessAction } from '../actions/route.actions';
@@ -8,19 +8,19 @@ import { RouteModel } from '../models/helper/route.model';
 
 @Injectable()
 export class RouteEffects {
-  @Effect() readonly noticeNavigation$ = this.router.events.pipe(
+   readonly noticeNavigation$ = createEffect(() => this.router.events.pipe(
     filter((event): event is RoutesRecognized => event instanceof RoutesRecognized),
     map(({urlAfterRedirects}) => this.parseUrl(urlAfterRedirects)),
     filter((route): route is RouteModel => route != null),
     map(route => new NavigateRequestAction(route))
-  );
+  ));
 
-  @Effect() readonly storeRoute$ = this.router.events.pipe(
+   readonly storeRoute$ = createEffect(() => this.router.events.pipe(
     filter((event): event is NavigationEnd => event instanceof NavigationEnd),
     map(({urlAfterRedirects}) => this.parseUrl(urlAfterRedirects)),
     filter((route): route is RouteModel => route != null),
     map(route => new NavigateSuccessAction(route))
-  );
+  ));
 
   constructor(private readonly router: Router) { }
 
