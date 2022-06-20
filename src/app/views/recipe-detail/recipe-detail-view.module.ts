@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { FractionModule } from '../../pipes/fraction/fraction.module';
 import { RecipeDetailViewComponent } from './recipe-detail-view.component';
-import { MatCardModule, MatTableModule, MatTabsModule } from '@angular/material';
 import { UnpackModule } from '../../directives/unpack/unpack.module';
 import { RecipeDetailViewRoutingModule } from './recipe-detail-view-routing.module';
 

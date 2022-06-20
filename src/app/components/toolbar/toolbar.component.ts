@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RoutePath } from 'src/app/app-utils';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { RecipeDialogDataModel } from 'src/app/models/helper/recipe-dialog-data.model';
 import { RecipeFormComponent } from 'src/app/modal-views/recipe-form/recipe-form.component';
 import { AppStateModel } from 'src/app/models/helper/app-state.model';
@@ -22,7 +22,7 @@ export class ToolbarComponent {
   showNewRecipeDialog(): void {
     const dialogData: RecipeDialogDataModel = {};
     this.dialog.open(
-      RecipeFormComponent, 
+      RecipeFormComponent,
       {disableClose: true, data: dialogData}
     );
   }

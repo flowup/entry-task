@@ -6,16 +6,16 @@ import { RecipeDetailGuard } from './guards/recipe-detail.guard';
 const routes: Routes = [
   {
     path: `${RoutePath.Recipes}/:id`,
-    loadChildren: './views/recipe-detail/recipe-detail-view.module#RecipeDetailViewModule',
+    loadChildren: () => import('./views/recipe-detail/recipe-detail-view.module').then(m => m.RecipeDetailViewModule),
     canActivate: [RecipeDetailGuard]
   },
   {
     path: `${RoutePath.Recipes}`,
-    loadChildren: './views/recipes/recipes-view.module#RecipesViewModule'
+    loadChildren: () => import('./views/recipes/recipes-view.module').then(m => m.RecipesViewModule)
   },
   {
     path: `${RoutePath.Authors}`,
-    loadChildren: './views/authors/authors-view.module#AuthorsViewModule'
+    loadChildren: () => import('./views/authors/authors-view.module').then(m => m.AuthorsViewModule)
   },
   {
     path: '**',
